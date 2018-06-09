@@ -32,8 +32,12 @@ Route::get('/', function () {
  * 新タスク追加
  */
 Route::post('/task', function (Request $request) {
- //
-});
+  //バリデーション
+  $validatedData = $request->validate([
+        'name' => 'required|unique:posts|max:255',
+    ]);
+
+}
 
 /**
  * 既存タスク削除
