@@ -36,7 +36,13 @@ Route::post('/task', function (Request $request) {
   $validatedData = $request->validate([
         'name' => 'required|unique:posts|max:255',
     ]);
-
+    //タスクの作成
+    $task = new Task;
+    $task->name = $request->name;
+    //タスク保存
+    $task->save();
+    //表示させる
+    return redirect('/');
 });
 
 /**
