@@ -36,7 +36,7 @@ $tasks = Task::orderBy('created_at', 'asc')->get();
 Route::post('/task', function (Request $request) {
   //バリデーション
   $validatedData = $request->validate([
-        'name' => 'required|unique:posts|max:255',
+        'name' => 'required|max:255',
     ]);
     //タスクの作成
     $task = new Task;
@@ -50,7 +50,7 @@ Route::post('/task', function (Request $request) {
 /**
  * 既存タスク削除
  */
-Route::delete('/task/{task}', function (Task $task) {
+Route::delete('/task/{id}', function (Task $task) {
   $task->delete();
 
  return redirect('/');
