@@ -28,8 +28,6 @@ $tasks = Task::orderBy('created_at', 'asc')->get();
 
 //viewの表示...データをviewに渡す[キー値=>変数]
   return view('tasks',['tasks'=>$tasks]);
-
-
 });
 
 /**
@@ -53,5 +51,7 @@ Route::post('/task', function (Request $request) {
  * 既存タスク削除
  */
 Route::delete('/task/{task}', function (Task $task) {
- //
+  $task->delete();
+
+ return redirect('/');
 });
