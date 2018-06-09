@@ -9,8 +9,23 @@
         新規タスク
       </div>
       <div class="panel-body">
+        <!--バリデーションエラー表示-->
+        @if (count($errors) > 0)
+        <!-- フォームのエラーリスト -->
+        <div class="alert alert-danger">
+          <strong>おや？何かがおかしいようです！</strong>
+
+          <br><br>
+
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
         <!-- 新タスクフォーム -->
-          <form>
+        <form>
               <!-- タスク名 -->
               <div class="form-group">
                   <label for="task" class="col-sm-2 control-label">タスク</label>
