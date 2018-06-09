@@ -37,7 +37,7 @@ Route::post('/task', function (Request $request) {
         'name' => 'required|unique:posts|max:255',
     ]);
 
-}
+});
 
 /**
  * 既存タスク削除
