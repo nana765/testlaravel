@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 
 <div class="container">
@@ -14,9 +13,7 @@
         <!-- フォームのエラーリスト -->
         <div class="alert alert-danger">
           <strong>入力情報に間違いがあるようです</strong>
-
           <br><br>
-
           <ul>
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
@@ -25,26 +22,82 @@
         </div>
         @endif
         <!-- 新タスクフォーム -->
-        <form>
-              <!-- タスク名 -->
-              <div class="form-group">
-                  <label for="task" class="col-sm-2 control-label">タスク</label>
+        <form action="/task" method="POST" class="form-horizontal">
+            {{ csrf_field() }}
+          <!-- タスク名 -->
+          <div class="form-group">
+            <label for="tasks" class="col-sm-2 control-label">タスク</label>
 
-                  <div class="col-sm-9">
-                      <input type="text" name="name" id="task-name" class="form-control">
-                  </div>
-              </div>
+            <div class="col-sm-9">
+              <input type="text" name="name" id="task-name" class="form-control">
+            </div>
+          </div>
 
-              <!-- タスク追加ボタン -->
-              <div class="form-group">
-                  <div class="col-sm-offset-10 col-sm-6">
-                      <button type="submit" class="btn btn-default">
-                        タスク追加
-                      </button>
-                  </div>
-              </div>
-          </form>
-
+          <!-- タスク追加ボタン -->
+          <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-6">
+              <button type="submit" class="btn btn-default">
+               タスク追加
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-      </form>
-      @endsection
+    </div>
+
+    <!-- 現在のタスク -->
+    @if (count($tasks) > 0)
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        現在のタスク
+      </div>
+
+      <div class="panel-body">
+        <table class="table table-striped task-table">
+
+          <!-- テーブルヘッダー -->
+          <thead>
+            <th>Task</th>
+            <th>&nbsp;</th>
+          </thead>
+
+          <!-- テーブルボディー -->
+          <tbody>
+            @foreach ($tasks as $task)
+            <tr>
+              <!-- タスク名 -->
+              <td class="table-text">
+                <div>{{ $task->name }}</div>
+              </td>
+
+              <td>
+                <!-- TODO: 削除ボタン -->
+                <tr>
+                  <!-- タスク名 -->
+                  <td class="table-text">
+                    <div>{{ $task->name }}</div>
+                  </td>
+
+                  <!-- 削除ボタン -->
+                  <td>
+                    <form action="{{ url('task/'.$task->id) }}" method="POST">
+                      {{ csrf_field() }}
+                      {{ method_field('DELETE') }}
+
+                      <button type="submit" class="btn btn-danger">タスク削除</button>
+                    </form>
+                  </td>
+                </tr>
+                <td>&nbsp;</td>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+    @endif
+
+  </div>
+</div>
+@endsection
