@@ -23,8 +23,12 @@ use Illuminate\Http\Request;
  * 全タスク表示
  */
 Route::get('/', function () {
+//EloquentでDBのタスクを並び替えて取得
+$tasks = Task::orderBy('created_at', 'asc')->get();
 
-  return view('tasks');
+//viewの表示...データをviewに渡す[キー値=>変数]
+  return view('tasks',['tasks'=>$tasks]);
+
 
 });
 
